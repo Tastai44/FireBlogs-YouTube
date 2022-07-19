@@ -10,6 +10,7 @@ import CreatePost from "../views/CreatePost.vue"
 import BlogPreview from "../views/BlogPreview.vue"
 import ViewBlog from "../views/ViewBlog.vue"
 import EditBlog from "../views/EditBlog.vue"
+import Search from "../views/Search.vue"
 
 // import Admin from "../views/Admin.vue"
 
@@ -27,6 +28,14 @@ const routes = [
     },
   },
   {
+    path: "/search",
+    name: "Search",
+    component: Search,
+    meta: {
+      title: 'Search'
+    },
+  },
+  {
     path: "/blogs",
     name: "Blogs",
     component: Blogs,
@@ -34,6 +43,7 @@ const routes = [
       title: 'Blogs'
     },
   },
+
   {
     path: "/login",
     name: "Login",

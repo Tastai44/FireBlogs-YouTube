@@ -8,6 +8,7 @@
                 <ul v-show="!mobile">
                     <router-link class="link" :to="{ name: 'Home'}">Home</router-link>
                     <router-link class="link" :to="{ name: 'Blogs'}">Blog</router-link>
+                    <router-link class="link" :to="{ name: 'Search'}">Explore</router-link>
                     <router-link v-if="user" class="link" :to="{ name: 'CreatePost'}">Create Post</router-link>
                     <router-link v-if="!user" class="link" :to="{ name: 'Login'}">Login / Register</router-link>
                 </ul>
@@ -50,6 +51,7 @@
                 <ul class="mobile-nav" v-show="mobileNav">
                     <router-link class="link" :to="{ name: 'Home'}">Home</router-link>
                     <router-link class="link" :to="{ name: 'Blogs'}">Blog</router-link>
+                    <router-link class="link" :to="{ name: 'Search'}">Explore</router-link>
                     <router-link v-if="user" class="link" :to="{ name: 'CreatePost'}">Create Post</router-link>
                     <router-link v-if="!user" class="link" :to="{ name: 'Login'}">Login / Register</router-link>
                 </ul>
@@ -64,8 +66,6 @@ import userIcon from '../assets/Icons/user-alt-light.svg';
 import signOutIcon from '../assets/Icons/sign-out-alt-regular.svg';
 import firebase from "firebase/app";
 import "firebase/auth";
-
-
 export default {
     name: "navigation",
     components: {
@@ -80,6 +80,7 @@ export default {
             mobile: null,
             mobileNav: null,
             windownWidth: null,
+            // show: null,
         };
     },
     created() {
@@ -117,7 +118,8 @@ export default {
     computed: {
         user() {
             return this.$store.state.user;
-        }
+        },
+        
     }
 
 };
@@ -222,9 +224,6 @@ export default {
           transform: translateX(-250px);
         }
     }  
-
-
-
 
 </style>
 

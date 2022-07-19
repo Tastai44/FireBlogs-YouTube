@@ -116,7 +116,7 @@ export default {
                         }, async () => {
                             const downloadURL = await docRef.getDownloadURL();
                             const timestamp = Date.now();
-                            const dataBase = db.collection("blogPosts").doc();
+                            const dataBase = db.collection("blogPosts").doc(); // Declar into table!
 
                             await dataBase.set({
                                 blogID: dataBase.id,

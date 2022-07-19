@@ -17,6 +17,12 @@ export default new Vuex.Store({
     blogPhotoFileURL: null,
     blogPhotoPreview: null,
 
+    commentPosts: [],
+    commentLoaded: null,
+    commentPhotoName: "",
+    commentPhotoFileURL: null,
+    commentHTML: "Write your comments here...",
+
     editPost: null,
     user: null,
     profileEmail: null,
@@ -48,6 +54,20 @@ export default new Vuex.Store({
     createFileURL(state, payload) {
       state.blogPhotoFileURL = payload;
     },
+
+    NamePhotoComment(state, payload) {
+      state.commentPhotoName = payload;
+      // console.log( payload)
+    },
+    createCommentURL(state, payload) {
+      state.commentPhotoFileURL = payload;
+      // console.log( payload)
+    },
+    newCommentPost(state, payload) {
+      state.commentHTML = payload;
+    },
+
+    
     openPhotoPreview(state) {
       state.blogPhotoPreview = !state.blogPhotoPreview;
     },
@@ -61,9 +81,22 @@ export default new Vuex.Store({
       state.blogPhotoFileURL = payload.blogCoverPhoto;
       state.blogPhotoName = payload.blogCoverPhotoName;
     },
+
+    setCommentState(state, payload) {
+      state.profileUsername = payload.profileUsername;
+      state.commentHTML = payload.commentHTML;
+      state.commentPhotoFileURL = payload.commentPhoto;
+      state.commentPhotoName = payload.commentPhotoName;
+    },
+    // use for delete and update
     filterBlogPost(state, payload) {
       state.blogPosts = state.blogPosts.filter((post) => post.blogID !== payload);
     },
+    filterBlogComment(state, payload) {
+      state.commentPosts = state.commentPosts.filter((comment) => comment.postID !== payload);
+    },
+
+
     updateUser(state, payload){
       state.user = payload;
     },
@@ -91,7 +124,7 @@ export default new Vuex.Store({
   },
   actions: {
     async getCurrentUser({commit}) {
-      const dataBase = await db.collection('users').doc(firebase.auth().currentUser.uid);
+      const dataBase = await db.collection('users').doc(firebase.auth().currentUser.uid); // Declar to table 'users'
       const dbResults = await dataBase.get();
       commit("setProfileInfo", dbResults);
       commit("setProfileInitials");
@@ -114,6 +147,31 @@ export default new Vuex.Store({
       });
       state.postLoaded = true;
     },
+
+    // Comment section
+
+    async getComment({ state }) {
+      const dataBase = await db.collection("commentPosts").orderBy("date", "desc");
+      const dbResults = await dataBase.get();
+      dbResults.forEach((doc) => {
+        if(!state.commentPosts.some(comment => comment.commentID === doc.id)) {
+          const data = {
+            commentID: doc.data().commentID,
+            commentHTML: doc.data().commentHTML,
+            commentPhoto: doc.data().commentPhoto,
+            commentDate: doc.data().date,
+            commentPhotoName: doc.data().commentPhotoName,
+            profileUsername: doc.data().profileUsername,
+            postID: doc.data().postID,
+          };
+          state.commentPosts.push(data);
+        }
+      });
+      state.commentLoaded = true;
+    },
+    // Comment section
+
+
     async updatePost({commit, dispatch}, payload) {
       commit("filterBlogPost", payload);
       await dispatch("getPost");
