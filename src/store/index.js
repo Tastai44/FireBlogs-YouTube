@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import firebase from "firebase/app";
 import "firebase/auth";
 import db from "../firebase/firebaseInit";
+// import { doc, deleteDoc } from "firebase/firestore";
+
 // import { getOwnPropertySymbols } from 'core-js/core/object';
 
 Vue.use(Vuex)
@@ -11,7 +13,7 @@ export default new Vuex.Store({
   state: {
     blogPosts: [],
     postLoaded: null,
-    blogHTML: "Write your blog title here...",
+    blogHTML: "",
     blogTitle: "",
     blogPhotoName: "",
     blogPhotoFileURL: null,
@@ -21,7 +23,7 @@ export default new Vuex.Store({
     commentLoaded: null,
     commentPhotoName: "",
     commentPhotoFileURL: null,
-    commentHTML: "Write your comments here...",
+    commentHTML: "",
 
     editPost: null,
     user: null,
@@ -73,7 +75,7 @@ export default new Vuex.Store({
     },
     toggleEditPost(state, payload) {
       state.editPost = payload;
-      console.log(state.editPost)
+      console.log(payload)
     },
     setBlogState(state, payload) {
       state.blogTitle = payload.blogTitle;
@@ -95,6 +97,7 @@ export default new Vuex.Store({
     filterBlogComment(state, payload) {
       state.commentPosts = state.commentPosts.filter((comment) => comment.postID !== payload);
     },
+
 
 
     updateUser(state, payload){
@@ -180,6 +183,12 @@ export default new Vuex.Store({
       const getPost = await db.collection("blogPosts").doc(payload);
       await getPost.delete();
       commit("filterBlogPost", payload);
+    },
+    
+    async deleteComment({ commit}, payload) {
+      const getComment = await db.collection("commentPosts").doc(payload);
+      await getComment.delete();
+      commit("filterBlogComment", payload);
     },
     async updateUserSettings({commit, state }) {
       const dataBase = await db.collection("users").doc(state.profileId);

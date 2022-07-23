@@ -7,6 +7,7 @@
             <h4>Posted on: {{ new Date(this.currentBlog[0].blogDate).toLocaleString("en-us", { dateStyle: "long"}) }}</h4>
             <img :src="this.currentBlog[0].blogCoverPhoto" alt="" />
             <div class="post-HTML ql-editor" v-html="this.currentBlog[0].blogHTML"></div>
+            
             <br><br>
 
             <div class="comments">
@@ -19,6 +20,7 @@
                 <textarea
                     cols="138" rows="2"
                     :editorOptions="editorSettings"
+                    placeholder="Write your comments here..."
                     v-model="commentHTML"
                 />
                 <!-- <button @click="refresh">Refresh</button> -->
@@ -40,6 +42,14 @@
                                 {{comment.commentHTML}}  <br>
                                 <img :src="comment.commentPhoto" alt="" />
                             </div>
+                            <div  class="icons">
+                                <div  class="icon">
+                                    <Edit class="edit" />
+                                </div>
+                                <div @click="deleteComment(comment.commentID)" class="icon">
+                                    <Delete class="delete" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -53,7 +63,8 @@ import firebase from "firebase/app";
 import 'firebase/storage';
 import db from "../firebase/firebaseInit";
 import Loading from '../components/Loading.vue';
-
+import Edit from "../assets/Icons/edit-regular.svg";
+import Delete from "../assets/Icons/trash-regular.svg";
 
 export default {
     name: "ViewBlog",
@@ -81,7 +92,14 @@ export default {
 
 
     methods: {
-        
+        deleteComment(id) {
+            
+            this.$store.dispatch("deleteComment", id);
+            // this.loading = true;
+            // this.$router.go(0);
+            // this.loading = false;
+            // console.log(this.commentPosts[0]) 
+        },
         filePick() {
             this.file = this.$refs.commentPhoto.files[0];
             const fileName = this.file.name;
@@ -143,6 +161,8 @@ export default {
 
     components: {
         Loading,
+        Edit,
+        Delete,
     },
     
 
@@ -310,6 +330,45 @@ export default {
             width: 20%;
         }
     }
+    .icons {
+            display: flex;
+            position: relative;
+            z-index: 99;
+
+            .icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                background-color: #fff;
+                transition: 0.5s ease all;
+
+                &:hover {
+                background-color: #303030;
+
+                    .edit,
+                    .delete {
+                        path {
+                            fill: #fff;
+                        }
+                    }
+                }
+
+                &:nth-child(1) {
+                    margin-right: 8px;
+                }
+                .edit,
+                .delete {
+                    pointer-events: none;
+                    height: 15px;
+                    width: auto;
+                }
+            }
+
+            
+        }
 }    
   }  
 </style>

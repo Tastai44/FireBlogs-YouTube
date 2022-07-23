@@ -1,5 +1,6 @@
 <template>
     <div class="blog-card">
+
         <div v-show="editPost" class="icons">
             <div @click="editBlog" class="icon">
                 <Edit class="edit" />
@@ -17,8 +18,8 @@
                     <Arrow class="arrow" /> 
                 </router-link>
             </div>
-            
-    </div>
+        </div>
+
 </template>
 
 <script>
@@ -26,10 +27,14 @@ import Arrow from "../assets/Icons/arrow-right-light.svg";
 import Edit from "../assets/Icons/edit-regular.svg";
 import Delete from "../assets/Icons/trash-regular.svg";
 
-
 export default {
     name: "blogCard",
     props: ["post"],
+    data() {
+        return{
+            currentComment: null,
+        }
+    },
     components: {
         Arrow,
         Edit,
@@ -47,8 +52,11 @@ export default {
     computed: {
         editPost() {
             return this.$store.state.editPost;
-        }
-    }
+        },
+        commentPosts() {
+            return this.$store.state.commentPosts;
+        },
+    },
 };
 </script>
 
