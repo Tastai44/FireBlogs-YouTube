@@ -2,14 +2,18 @@
     <header>
         <nav class="container">
             <div class="branding">
-                <router-link class="header" :to="{ name: 'Home' }">Blog</router-link>
+                <router-link class="header" :to="{ name: 'Home' }">
+                    <img 
+                        src="../assets/LogoB.png" 
+                    >
+                </router-link>
             </div>
             <div class="nav-links">
                 <ul v-show="!mobile">
                     <router-link class="link" :to="{ name: 'Home'}">Home</router-link>
                     <router-link class="link" :to="{ name: 'Blogs'}">Blog</router-link>
                     <router-link class="link" :to="{ name: 'Search'}">Explore</router-link>
-                    <router-link v-if="user" class="link" :to="{ name: 'CreatePost'}">Create Post</router-link>
+                    <router-link v-if="user" class="link" :to="{ name: 'CreatePost'}">CreatePost</router-link>
                     <router-link v-if="!user" class="link" :to="{ name: 'Login'}">Login / Register</router-link>
                 </ul>
                 <div v-if="user" @click="toggleProfileMenu" class="profile" ref="profile">
@@ -52,7 +56,7 @@
                     <router-link class="link" :to="{ name: 'Home'}">Home</router-link>
                     <router-link class="link" :to="{ name: 'Blogs'}">Blog</router-link>
                     <router-link class="link" :to="{ name: 'Search'}">Explore</router-link>
-                    <router-link v-if="user" class="link" :to="{ name: 'CreatePost'}">Create Post</router-link>
+                    <router-link v-if="user" class="link" :to="{ name: 'CreatePost'}">CreatePost</router-link>
                     <router-link v-if="!user" class="link" :to="{ name: 'Login'}">Login / Register</router-link>
                 </ul>
             </transition>
@@ -126,6 +130,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    img {
+        width: 20%;
+    }
 ้  header {
         background-color: #fff;
         padding: 0 25px;
@@ -223,6 +230,7 @@ export default {
         .mobile-nav-leave-to {
           transform: translateX(-250px);
         }
+        
     }  
 
 </style>
