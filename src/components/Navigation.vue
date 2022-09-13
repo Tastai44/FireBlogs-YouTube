@@ -3,7 +3,7 @@
         <nav class="container">
             <div class="branding">
                 <router-link class="header" :to="{ name: 'Home' }">
-                    <img 
+                    <img
                         src="../assets/LogoB.png" 
                     >
                 </router-link>
@@ -144,30 +144,29 @@ export default {
             padding: 0 8px;
             transition: 0.3s color ease;
 
+
             &:hover {
                 color: #1eb8b8;
             }
         }
-
+        .branding  {
+            display: flex;
+            align-items: center;
+        
+            .header {
+                color: #000;
+                text-decoration: none;
+            }
+        }
         nav {
             display: flex;
             padding: 25px 0;
 
-            .branding  {
-                display: flex;
-                align-items: center;
             
-                .header {
-                    font-weight: 600;
-                    font-size: 24px;
-                    color: #000;
-                    text-decoration: none;
-                }
-            }
             .nav-links {
                 position: relative;
                 display: flex;
-                flex: 1;
+                flex: 2;
                 align-items: center;
                 justify-content: flex-end;
 
@@ -177,6 +176,7 @@ export default {
                     .link {
                         margin-right: 32px;
                         color: #000;
+                                    
                     }
 
                     .link:last-child {

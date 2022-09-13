@@ -15,7 +15,7 @@
     <div v-if="!user" class="updates">
       <div class="container">
           <h2>Nerver miss the Food. Register for your free account today!</h2>
-          <router-link class="router-button" to="#">
+          <router-link class="router-button" :to="{ name: 'Register'}">
               Register for Blogs <Arrow class="arrow arrow-light" />
           </router-link>
       </div>

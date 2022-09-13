@@ -98,7 +98,7 @@ header {
             font-weight: 500;
             padding: 0 8px;
             transition: 0.3s color ease;
-
+            
             &:hover {
                 color: #1eb8b8;
             }
@@ -106,7 +106,7 @@ header {
 
         nav {
             display: flex;
-            padding: 25px 0;
+            padding: 15px 0;
 
             .branding  {
                 display: flex;
@@ -127,6 +127,7 @@ header {
                 justify-content: flex-end;
 
                 ul {
+                    width: 400px;
                     margin-right: 32px;
 
                     .link {
