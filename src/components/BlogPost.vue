@@ -100,6 +100,7 @@ export default {
           padding-bottom: 4px;
           border-bottom: 1px solid transparent;
           transition: 0.5s ease-in all;
+          color: #303030;
 
           &:hover {
             border-bottom-color: #303030;
@@ -108,7 +109,7 @@ export default {
 
         .link-light {
           &:hover {
-            border-bottom-color: #fff;
+            border-bottom-color: rgb(0, 0, 0);
           }
         }
       }
@@ -146,8 +147,9 @@ export default {
 
   .no-user:first-child{
     .blog-content {
-      background-color: #303030;
-      color:#fff;
+      background-color: #ffffff;
+      font: bold;
+      color:rgb(0, 0, 0);
     }
   }
 </style>

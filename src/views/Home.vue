@@ -37,7 +37,7 @@ export default {
       welcomeScreen: {
         title: "Welcome",
         blogPost:
-          "TEXT",
+          "This web page involves Food around Chiang Mai university",
         welcomeScreen: true,
         photo: "coding",
       },
