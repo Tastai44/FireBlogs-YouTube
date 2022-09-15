@@ -11,6 +11,8 @@ import BlogPreview from "../views/BlogPreview.vue"
 import ViewBlog from "../views/ViewBlog.vue"
 import EditBlog from "../views/EditBlog.vue"
 import Search from "../views/Search.vue"
+import ContactUs from "../views/ContactUs.vue"
+
 
 // import Admin from "../views/Admin.vue"
 
@@ -90,6 +92,14 @@ const routes = [
     component: CreatePost,
     meta: {
       title: 'CreatePost'
+    },
+  },
+  {
+    path: "/contact-us",
+    name: "ContactUs",
+    component: ContactUs,
+    meta: {
+      title: 'ContactUs'
     },
   },
   {

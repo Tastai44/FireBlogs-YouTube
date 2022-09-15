@@ -127,8 +127,8 @@ header {
                 justify-content: flex-end;
 
                 ul {
-                    width: 400px;
-                    margin-right: 32px;
+                    width: 550px;
+                    margin-right: 5px;
 
                     .link {
                         margin-right: 32px;
