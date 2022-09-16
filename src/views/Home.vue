@@ -14,7 +14,7 @@
 
     <div v-if="!user" class="updates">
       <div class="container">
-          <h2>Nerver miss the Food. Register for your free account today!</h2>
+          <h2>Never miss the Food. Register for your free account today!</h2>
           <router-link class="router-button" :to="{ name: 'Register'}">
               Register for Blogs <Arrow class="arrow arrow-light" />
           </router-link>
@@ -89,7 +89,7 @@ export default {
     h2 {
       font-weight: 300;
       font-size: 32px;
-      max-width: 425px;
+      max-width: 455px;
       width: 100%;
       text-align: center;
       text-transform: uppercase;
