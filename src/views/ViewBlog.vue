@@ -17,12 +17,28 @@
                     <div :class="{invisible: !error}" class="err-message">
                         <p><span>Error: {{ this.errorMsg }}</span></p>
                     </div>
-                <textarea
-                    cols="138" rows="2"
+                <div class="com_box">
+                   
+                    <textarea
+                    cols="100" rows="2"
                     :editorOptions="editorSettings"
                     placeholder="Write your comments here..."
                     v-model="commentHTML"
-                />
+                    />
+                </div>
+                
+                <br>
+                <!-- Try -->
+                <!-- <form >
+                    <div >
+                        <div >
+                            <input type="text" placeholder="Write your comments here..." v-model="commentHTML">
+                            <email class="icon" />
+                        </div>
+                        <div v-show="error" class="error">{{this.errorMsg}}</div>
+                    </div>
+                </form> -->
+                <!-- <input type="text" placeholder="Comment"/> -->
                 <!-- <button @click="refresh">Refresh</button> -->
                 
                 <label for="comment-photo" class="uploadPhoto">Upload Photo</label>
@@ -43,7 +59,7 @@
                                 <img :src="comment.commentPhoto" alt="" />
                             </div>
                             <div  class="icons">
-                                <div  class="icon">
+                                <div @click="editComment(comment.commentID)" class="icon">
                                     <Edit class="edit" />
                                 </div>
                                 <div @click="deleteComment(comment.commentID)" class="icon">
@@ -93,12 +109,16 @@ export default {
 
     methods: {
         deleteComment(id) {
-            
             this.$store.dispatch("deleteComment", id);
+            this.$router.go(0);
             // this.loading = true;
             // this.$router.go(0);
             // this.loading = false;
             // console.log(this.commentPosts[0]) 
+        },
+        editComment(id) {
+            this.$store.dispatch("updateComment", id);
+            // this.$router.push({ name: "EditBlog", params: { blogid: this.post.blogID } });
         },
         filePick() {
             this.file = this.$refs.commentPhoto.files[0];
@@ -137,7 +157,7 @@ export default {
                             });
                             await this.$store.dispatch("getComment");
                             this.loading = false;
-                            this.$router.go(0);
+                            // this.$router.go(0);
                             // this.$router.push({ name: "ViewBlog", params: {postID: this.currentBlog[0].blogID} });
                         }
                     );
@@ -198,6 +218,14 @@ export default {
 </script>
 
 <style lang="scss">
+    .com_box{
+        width: 500px;
+        // background: #303030;
+
+        input {
+            background: #303030;
+        }
+    }
     .post-view {
         min-height: 100%;
 
@@ -219,6 +247,7 @@ export default {
         img {
             width: 100%;
             margin-bottom: 32px;
+            border-radius: 2%;
         }
         h4 {
             font-weight: 400;
@@ -289,6 +318,51 @@ export default {
     }
 
   .comments {
+      form {
+            padding: 0 10px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            @media (min-width: 900px) {
+                padding: 0 50px;
+            }
+            .inputs {
+                width: 100%;
+                max-width: 350px;
+
+                .input {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 8px;
+                    input {
+                        width: 100%;
+                        border: none;
+                        background-color: #f2f7f6;
+                        padding: 4px 4px 4px 30px;
+                        height: 50px;
+
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+
+                    .icon {
+                        width: 12px;
+                        position: absolute;
+                        left: 6px;
+                    }
+                }
+            }
+        }
+
+    // width: 200px;
+    position: relative;
+    // background: #303030;
     input {
         display: none;
     }

@@ -12,9 +12,8 @@
                 <ul v-show="!mobile">
                     <router-link class="link" :to="{ name: 'Home'}">Home</router-link>
                     <router-link class="link" :to="{ name: 'Blogs'}">Blog</router-link>
-                    <!-- <router-link class="link" :to="{ name: 'Search'}">Explore</router-link> -->
-                    <router-link class="link" :to="{ name: ''}">Explore</router-link>
-                    <router-link class="link" :to="{ name: ''}">Contact Us</router-link>
+                    <router-link class="link" :to="{ name: 'Search'}">Explore</router-link>
+                    <router-link class="link" :to="{ name: 'ContactUs'}">Contact Us</router-link>
                     <router-link v-if="user" class="link" :to="{ name: 'CreatePost'}">CreatePost</router-link>
                     <router-link v-if="!user" class="link" :to="{ name: 'Login'}">Login / Register</router-link>
                 </ul>
@@ -58,7 +57,7 @@
                     <router-link class="link" :to="{ name: 'Home'}">Home</router-link>
                     <router-link class="link" :to="{ name: 'Blogs'}">Blog</router-link>
                     <router-link class="link" :to="{ name: 'Search'}">Explore</router-link>
-                    <router-link class="link" :to="{ name: 'Search'}">Contact Us</router-link>
+                    <router-link class="link" :to="{ name: 'ContactUs'}">Contact Us</router-link>
                     <router-link v-if="user" class="link" :to="{ name: 'CreatePost'}">CreatePost</router-link>
                     <router-link v-if="!user" class="link" :to="{ name: 'Login'}">Login / Register</router-link>
                 </ul>

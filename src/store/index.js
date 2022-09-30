@@ -190,6 +190,11 @@ export default new Vuex.Store({
       await getComment.delete();
       commit("filterBlogComment", payload);
     },
+    async updateComment({commit, dispatch}, payload) {
+      commit("filterBlogComment", payload);
+      await dispatch("getComment");
+    },
+
     async updateUserSettings({commit, state }) {
       const dataBase = await db.collection("users").doc(state.profileId);
       await dataBase.update({
