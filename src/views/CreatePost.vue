@@ -16,10 +16,10 @@
                 </div>
             </div>
             <textarea
-                    cols="210" rows="40"
-                    :editorOptions="editorSettings"
-                    v-model="blogHTML"
-                    placeholder="Write your comments here..."
+                cols="210" rows="1"
+                :editorOptions="editorSettings"
+                v-model="blogHTML"
+                placeholder="Write your comments here..."
             />
             <!-- <div class="editor">
                 <vue-editor :editorOptions="editorSettings" v-model="blogHTML" useCustomImageHandler @image-added="imageHandler" />

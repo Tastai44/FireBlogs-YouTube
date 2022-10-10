@@ -12,6 +12,8 @@ import ViewBlog from "../views/ViewBlog.vue"
 import EditBlog from "../views/EditBlog.vue"
 import Search from "../views/Search.vue"
 import ContactUs from "../views/ContactUs.vue"
+import EditComment from "../views/Edit-comment.vue"
+
 
 
 // import Admin from "../views/Admin.vue"
@@ -124,6 +126,14 @@ const routes = [
     component: EditBlog,
     meta: {
       title: 'Edit Blog Post'
+    },
+  },
+  {
+    path: "/edit-comment:comid",
+    name: "EditComment",
+    component: EditComment,
+    meta: {
+      title: 'Edit Comment Post'
     },
   },
 ];

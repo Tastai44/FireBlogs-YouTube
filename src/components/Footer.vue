@@ -6,16 +6,16 @@
                     <router-link class="header" :to="{ name: 'Home' }">Blog</router-link>
                     <ul>
                         <li>
-                            <a href="#"><youTube class="svg-icon"/></a>
+                            <a href="https://www.youtube.com/" target="_blank"><youTube class="svg-icon"/></a>
                         </li>
                         <li>
-                            <a href="#"><twitter class="svg-icon"/></a>
+                            <a href="https://twitter.com/" target="_blank"><twitter class="svg-icon"/></a>
                         </li>
                         <li>
-                            <a href="#"><instagram class="svg-icon"/></a>
+                            <a href="https://www.instagram.com/" target="_blank"><instagram class="svg-icon"/></a>
                         </li>
                         <li>
-                            <a href="#"><linkedin class="svg-icon"/></a>
+                            <a href="https://www.linkedin.com/" target="_blank"><linkedin class="svg-icon"/></a>
                         </li>
                     </ul>
                 </div>
@@ -32,7 +32,9 @@
                 </div>
             </div>
             <div class="right">
-                <p>Copyright 2022 All Rights Reserved</p>
+                <p>Copyright 2022 by <br>
+                  Kao neaw ma muang Team<br>
+                  All Rights Reserved</p>
             </div>
         </div>
     </footer>
@@ -64,7 +66,7 @@ export default {
 <style lang="scss" scoped>
 footer {
   margin-top: auto;
-  padding: 100px 25px;
+  padding: 50px 25px;
   background-color: #303030;
   .container {
     display: flex;

@@ -7,25 +7,25 @@
                 <p><span>Error: {{ this.errorMsg }}</span></p>
             </div>
             <div class="blog-info">
-                <input type="text" placeholder="Enter Blog Title" v-model="blogTitle" />
+                <!-- <input type="text" placeholder="Enter Blog Title" v-model="blogTitle" /> -->
                 <div class="upload-file">
-                    <label for="blog-photo">Upload Cover Photo</label>
-                    <input type="file" ref="blogPhoto" id="blog-photo" @change="fileChange" accept=".png, .jpg, .jpeg" />
-                    <button @click="openPreview" class="preview" :class="{ 'button-inactive': !this.$store.state.blogPhotoFileURL }">Preview Photo</button>
-                    <span>File Chosen: {{ this.$store.state.blogPhotoName }} </span>
+                    <label for="blog-photo">Upload Photo</label>
+                    <input type="file" ref="commentPhoto" id="blog-photo" @change="fileChange" accept=".png, .jpg, .jpeg" />
+                    <!-- <button @click="openPreview" class="preview" :class="{ 'button-inactive': !this.$store.state.commentPhotoFileURL }">Preview Photo</button> -->
+                    <span>File Chosen: {{ this.$store.state.commentPhotoName }} </span>
                 </div>
             </div>
             <textarea
-                    cols="210" rows="40"
+                    cols="210" rows="1"
                     :editorOptions="editorSettings"
-                    v-model="blogHTML"
+                    v-model="commentHTML"
             />
             <!-- <div class="editor">
                 <vue-editor :editorOptions="editorSettings" v-model="blogHTML" useCustomImageHandler @image-added="imageHandler" />
             </div> -->
             
             <div class="blog-actions">
-                <button @click="updateBlog">Save Changes</button>
+                <button @click="updateComment">Save Changes</button>
                 <!-- <router-link class="router-button" :to="{ name: 'BlogPreview' }" >
                     Preview Changes
                 </router-link> -->
@@ -46,7 +46,7 @@ window.Quill = Quill;
 const ImageResize = require("quill-image-resize-module").default;
 Quill.register("modules/imageResize", ImageResize);
 export default {
-    name: "CreatePost",
+    name: "EditComment",
     data() {
         return {
             file: null,
@@ -68,19 +68,19 @@ export default {
         Loading,
     },
     async mounted() {
-        this.routeID = this.$route.params.blogid;
-        this.currentBlog = await this.$store.state.blogPosts.filter((post) => {
-            return post.blogID === this.routeID;
+        this.routeID = this.$route.params.comid;
+        this.currentBlog = await this.$store.state.commentPosts.filter((post) => {
+            return post.commentID === this.routeID;
         });
-        this.$store.commit("setBlogState", this.currentBlog[0]);
+        this.$store.commit("setCommentState", this.currentBlog[0]);
     },
 
     methods: {
         fileChange() {
-            this.file = this.$refs.blogPhoto.files[0];
+            this.file = this.$refs.commentPhoto.files[0];
             const fileName = this.file.name;
-            this.$store.commit("fileNameChange", fileName);
-            this.$store.commit("createFileURL", URL.createObjectURL(this.file));
+            this.$store.commit("NamePhotoComment", fileName);
+            this.$store.commit("createCommentURL", URL.createObjectURL(this.file));
         },
 
         openPreview() {
@@ -90,7 +90,7 @@ export default {
         // save photo as files
         imageHandler(file, Editor, cursorLocation, resetUploader) {
             const storageRef = firebase.storage().ref();
-            const docRef = storageRef.child(`documents/blogPostPhotos/${file.name}`);
+            const docRef = storageRef.child(`documents/CommentPhotos/${file.name}`);
             docRef.put(file).on(
                 "state_changed",
                 (snapshot) => {
@@ -108,13 +108,13 @@ export default {
         },
         // save photo as files
 
-        async updateBlog() {
-            const dataBase = await db.collection('blogPosts').doc(this.routeID);
-            if (this.blogTitle.length !== 0 && this.blogHTML.length !== 0) {
+        async updateComment() {
+            const dataBase = await db.collection('commentPosts').doc(this.routeID);
+            if (this.commentHTML.length !== 0) {
                 if(this.file) {
                     this.loading = true;
                     const storageRef = firebase.storage().ref();
-                    const docRef = storageRef.child(`documents/BlogCoverPhotos/${this.$store.state.blogPhotoName}`);
+                    const docRef = storageRef.child(`documents/CommentPhotos/${this.$store.state.commentPhotoName}`);
                     docRef.put(this.file).on(
                         "state_changed", 
                         (snapshot) => {
@@ -127,27 +127,31 @@ export default {
                             const downloadURL = await docRef.getDownloadURL();
 
                             await dataBase.update({
-                                blogID: dataBase.id,
-                                blogHTML: this.blogHTML,
-                                blogCoverPhoto: downloadURL,
-                                blogCoverPhotoName: this.blogCoverPhotoName,
-                                blogTitle: this.blogTitle,
+                                commentID: dataBase.id,
+                                commentHTML: this.commentHTML,
+                                commentPhoto: downloadURL,
+                                commentPhotoName: this.commentPhotoName,
+                                // blogTitle: this.blogTitle,
                             });
                             await this.$store.dispatch("updatePost", this.routeID);
                             this.loading = false;
-                            this.$router.push({ name: "ViewBlog", params: {blogid: dataBase.id} });
+                            this.$router.push({name: "Blogs"});
+                            this.$router.go(0);
+                            // this.$router.push({ name: "ViewBlog", params: {blogid: dataBase.id} });
                         }
                     );
                     return;
                 }
                 this.loading = true;
                 await dataBase.update({
-                    blogHTML: this.blogHTML,
-                    blogTitle: this.blogTitle,
+                    commentHTML: this.commentHTML,
+                    // blogTitle: this.blogTitle,
                 });
-                await this.$store.dispatch("updatePost", this.routeID);
+                await this.$store.dispatch("updateComment", this.routeID);
                 this.loading = false;
-                this.$router.push({ name: "ViewBlog", params: {blogid: dataBase.id} });
+                this.$router.push({name: "Blogs"});
+                this.$router.go(0);
+                // this.$router.push({ name: "ViewBlog", params: {blogid: dataBase.id} });
                 return;
             }
             this.error = true;
@@ -159,26 +163,24 @@ export default {
         },
     },
     computed: {
-        profileId () {
-            return this.$store.state.profileId;
+
+        commentPhotoName() {
+            return this.$store.state.commentPhotoName;
         },
-        blogCoverPhotoName() {
-            return this.$store.state.blogPhotoName;
-        },
-        blogTitle: {
+        // blogTitle: {
+        //     get() {
+        //         return this.$store.state.blogTitle;
+        //     },
+        //     set(payload) {
+        //         this.$store.commit("updateBlogTitle", payload);
+        //     },
+        // },
+        commentHTML: {
             get() {
-                return this.$store.state.blogTitle;
+                return this.$store.state.commentHTML;
             },
             set(payload) {
-                this.$store.commit("updateBlogTitle", payload);
-            },
-        },
-        blogHTML: {
-            get() {
-                return this.$store.state.blogHTML;
-            },
-            set(payload) {
-                this.$store.commit("newBlogPost", payload);
+                this.$store.commit("newCommentPost", payload);
             },
         },
     },
@@ -268,7 +270,7 @@ export default {
 
             .upload-file {
                 flex: 1;
-                margin-left: 16px;
+                // margin-left: 16px;
                 position: relative;
                 display: flex;
 
@@ -316,7 +318,7 @@ export default {
 
         .blog-actions {
             margin-right: 16px;
-
+            margin-top:5px;
             button {
                 margin-right: 16px;
             }

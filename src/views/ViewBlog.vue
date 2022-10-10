@@ -20,10 +20,10 @@
                 <div class="com_box">
                    
                     <textarea
-                    cols="100" rows="2"
-                    :editorOptions="editorSettings"
-                    placeholder="Write your comments here..."
-                    v-model="commentHTML"
+                        cols="100" rows="1"
+                        :editorOptions="editorSettings"
+                        placeholder="Write your comments here..."
+                        v-model="commentHTML"
                     />
                 </div>
                 
@@ -55,7 +55,7 @@
                             <b class="username"> {{ comment.profileUsername }} </b> 
                             Posted on: {{ new Date(comment.commentDate ).toLocaleString("en-us", { dateStyle: "long"}) }}<br>
                             <div class="comment-text">
-                                {{comment.commentHTML}}  <br>
+                                {{comment.commentHTML}}  <br><br>
                                 <img :src="comment.commentPhoto" alt="" />
                             </div>
                             <div  class="icons">
@@ -110,15 +110,20 @@ export default {
     methods: {
         deleteComment(id) {
             this.$store.dispatch("deleteComment", id);
-            this.$router.go(0);
+            // return location.reload();
             // this.loading = true;
             // this.$router.go(0);
             // this.loading = false;
             // console.log(this.commentPosts[0]) 
         },
+        // editComment(id) {
+        //     this.$store.dispatch("updateComment", id);
+        //     // this.$router.push({ name: "EditBlog", params: { blogid: this.post.blogID } });
+        // },
+        
         editComment(id) {
-            this.$store.dispatch("updateComment", id);
-            // this.$router.push({ name: "EditBlog", params: { blogid: this.post.blogID } });
+            // console.log(bid);
+            this.$router.push({ name: "EditComment", params: { comid: id} });
         },
         filePick() {
             this.file = this.$refs.commentPhoto.files[0];
@@ -218,6 +223,9 @@ export default {
 </script>
 
 <style lang="scss">
+    textarea{
+        padding: 1rem;
+    }
     .com_box{
         width: 500px;
         // background: #303030;

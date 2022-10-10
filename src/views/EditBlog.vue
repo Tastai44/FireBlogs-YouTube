@@ -16,7 +16,7 @@
                 </div>
             </div>
             <textarea
-                    cols="210" rows="40"
+                    cols="210" rows="1"
                     :editorOptions="editorSettings"
                     v-model="blogHTML"
             />

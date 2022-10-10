@@ -1,10 +1,22 @@
 <template>
-    <div class="blog-card-wrap">
-        <div class="blog-cards container">
-            <h1 class="contact">Contact Us</h1>
-            
-        </div> 
+    <div class="contact">
+    <div class="Con_box">
+        <h1 >Contact Us</h1> <br>
+        <div class="box_text">
+            Thank you to everyone who has shown interest in and trust in our website. 
+            Otherwise, if you have any questions, don't keep it on your mind and please contact us. 
+            We will respond as soon as possible.
+            <br><br>
+            <b>Email:</b> <br> 
+            <li>Nuttanicha_Pra@cmu.ac.th [Customer service and Developer]<br></li>
+            <li>tastthai.654@gmail.com [Developer]</li>
+            <li>thiti_gaewja@cmu.ac.th [Developer]</li> 
+            <li>supakorn_ud@cmu.ac.th [Developer]</li> 
+            <li>marcharissawat@gmail.com [Developer]</li> 
 
+
+        </div> 
+    </div>
     </div>
 </template>
 
@@ -34,53 +46,22 @@ export default {
 
 <style lang="scss" scoped>
     .contact{
-        margin: 0;
-    }
-    .blog-cards {
-        position: relative;
-
-        .toggle-edit {
-            display: flex;
-            align-items: center;
-            position: absolute;
-            top: -70px;
-            right: 0;
-
-            span {
-                margin-right: 16px;
+        margin-top: 50px;
+        .Con_box{
+            // display: flex;
+            margin: auto;
+            h1{
+                text-align: center;
             }
-
-            input[type="checkbox"] {
-                position: relative;
-                border: none;
-                -webkit-appearance: none;
-                background: #fff;
-                outline: none;
-                width: 80px;
-                height: 30px;
-                border-radius: 20px;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            }
-
-            input[type="checkbox"]:before {
-                content: "";
-                position: absolute;
-                width: 30px;
-                height: 30px;
-                border-radius: 20px;
-                top: 0;
-                left: 0;
-                background: #303030;
-                transform: scale(1.1);
-                transition: 750ms ease all;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            }
-
-            input:checked[type="checkbox"]:before {
-                background: #fff;
-                left: 52px;
+            .box_text{
+                margin: auto;
+                width: 500px;
+                text-align: justify;
             }
         }
+    
     }
+    
+    
     
 </style>

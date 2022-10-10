@@ -24,6 +24,7 @@ export default new Vuex.Store({
     commentPhotoName: "",
     commentPhotoFileURL: null,
     commentHTML: "",
+    CommentPhotoPreview: null,
 
     editPost: null,
     user: null,
@@ -73,6 +74,9 @@ export default new Vuex.Store({
     openPhotoPreview(state) {
       state.blogPhotoPreview = !state.blogPhotoPreview;
     },
+    openCPhotoPreview(state) {
+      state.CommentPhotoPreview = !state.CommentPhotoPreview;
+    },
     toggleEditPost(state, payload) {
       state.editPost = payload;
       console.log(payload)
@@ -85,7 +89,6 @@ export default new Vuex.Store({
     },
 
     setCommentState(state, payload) {
-      state.profileUsername = payload.profileUsername;
       state.commentHTML = payload.commentHTML;
       state.commentPhotoFileURL = payload.commentPhoto;
       state.commentPhotoName = payload.commentPhotoName;
@@ -185,10 +188,11 @@ export default new Vuex.Store({
       commit("filterBlogPost", payload);
     },
     
-    async deleteComment({ commit}, payload) {
+    async deleteComment({commit}, payload) {
       const getComment = await db.collection("commentPosts").doc(payload);
       await getComment.delete();
       commit("filterBlogComment", payload);
+      location.reload();
     },
     async updateComment({commit, dispatch}, payload) {
       commit("filterBlogComment", payload);
